@@ -15,5 +15,5 @@ jobs:
       - name: Azure PowerShell Action
         uses: Azure/powershell@v1
         with:
-          inlineScript: Get-AzResourceGroup -Name "< YOUR RESOURCE GROUP >"
+          inlineScript: Get-AzureSubscription -SubscriptionId dd3de071-38c5-4594-a30b-f05ba2061b8a
           azPSVersion: "latest"
