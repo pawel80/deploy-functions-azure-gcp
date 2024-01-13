@@ -14,7 +14,7 @@ jobs:
     - name: 'Checkout'
       uses: 'actions/checkout@v4'
 
-    - name: Log in with GCP
+    - name: 'Log in with GCP'
       uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
