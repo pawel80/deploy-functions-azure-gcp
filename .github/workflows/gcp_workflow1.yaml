@@ -1,14 +1,28 @@
-jobs:
-  job_id:
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+name: GCPCLISample
 
+on:
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
+
     - uses: 'actions/checkout@v4'
 
+    - name: Log in with GCP
     - uses: 'google-github-actions/auth@v2'
       with:
-        project_id: 'my-project'
-        workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v2'
+      with:
+        # version: '>= 363.0.0'
+        version: 'latest'
+
+    - name: 'Use gcloud CLI'
+      run: 'gcloud info'
