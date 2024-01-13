@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: 'actions/checkout@v4'
+    - name: 'Checkout'
+      uses: 'actions/checkout@v4'
 
     - name: Log in with GCP
-    - uses: 'google-github-actions/auth@v2'
+      uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
