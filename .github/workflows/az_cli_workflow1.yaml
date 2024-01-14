@@ -7,6 +7,7 @@ on:
       - 'dev'
 
 # env:
+#   TF_DIR: '/tf_azure'
 #   AZURE_FUNCTIONAPP_NAME: tfewc-function
 #   AZURE_FUNCTIONAPP_PACKAGE_PATH: EvilWeatherControlApp\published
 #   CONFIGURATION: Release
@@ -28,22 +29,23 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}         
  
       # - name: 'Terraform Init'
-      #   working-directory: ./Terraform
+      #   working-directory: ${{ env.TF_DIR }}
       #   id: init
       #   run: terraform init
        
       # - name: 'Terraform Validate'
-      #   working-directory: ./Terraform
+      #   working-directory: ${{ env.TF_DIR }}
       #   id: validate
       #   run: terraform validate -no-color
 
       # - name: 'Terraform Plan'
+      #   working-directory: ${{ env.TF_DIR }}
       #   id: plan
       #   run: terraform plan -no-color
       #   continue-on-error: true
  
       # - name: 'Terraform Apply'
-      #   working-directory: ./Terraform
+      #   working-directory: ${{ env.TF_DIR }}
       #   run: terraform apply -auto-approve -input=false
 
   # build-and-deploy:
