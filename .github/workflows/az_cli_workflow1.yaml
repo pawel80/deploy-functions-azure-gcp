@@ -71,7 +71,7 @@ jobs:
 
 # TODO:
 # - Compare CORP TF files with this repo
-# - IMPLEMENT SELF-HOSTED RUNNER!
+# - SELF-HOSTED RUNNER:
 #   - CLI or pre-defined workflows (check action github marketplace)
 #     - deploy on-prem Function?
 
