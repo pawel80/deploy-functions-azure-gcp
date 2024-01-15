@@ -14,5 +14,5 @@ jobs:
     - name: 'Checkout'
       uses: 'actions/checkout@v4'
 
-    - name: Run bash echo command
-      run: echo Hello, world!
+    - name: 'Run bash echo command'
+      run: echo 'Hello, world!'
