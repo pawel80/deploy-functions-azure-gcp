@@ -27,9 +27,3 @@ jobs:
 
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
-
-# IMPLEMENT SELF-HOSTED RUNNER!
-
-# A common pattern is to have one workflow with separate jobs to build/test, and then deploy. You can put a condition on the deploy job (e.g. "run only on tags").
-
-# If build is ok, move to test, if test is ok, move to deploy: Azure/GCP

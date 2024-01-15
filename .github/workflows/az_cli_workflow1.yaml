@@ -68,3 +68,13 @@ jobs:
         inlineScript: |
             az account show
             az storage -h
+
+# TODO:
+# - Compare CORP TF files with this repo
+# - IMPLEMENT SELF-HOSTED RUNNER!
+#   - CLI or pre-defined workflows (check action github marketplace)
+#     - deploy on-prem Function?
+
+# A common pattern is to have one workflow with separate jobs to build/test, and then deploy. You can put a condition on the deploy job (e.g. "run only on tags").
+
+# If build is ok, move to test, if test is ok, move to deploy: Azure/GCP
