@@ -4,11 +4,13 @@
 variable "resource_group_name" {
   description = "Resource group name"
   type = string
-  default = ""
+  default = "RG-LAB-TF-FUNC"
 }
 
 variable "resource_group_location" {
   description = "Resource group location"
   type = string
-  default = "westeurope"
+  # default = "westeurope"
+  # default = "italynorth"
+  default = "polandcentral"
 }
