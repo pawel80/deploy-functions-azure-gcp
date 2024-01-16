@@ -6,8 +6,8 @@ on:
       - 'main'
       - 'dev'
 
-# env:
-#   TF_DIR: '/tf_azure'
+env:
+  TF_DIR: '/tf_azure'
 #   AZURE_FUNCTIONAPP_NAME: tfewc-function
 #   AZURE_FUNCTIONAPP_PACKAGE_PATH: EvilWeatherControlApp\published
 #   CONFIGURATION: Release
