@@ -8,12 +8,16 @@ on:
 
 env:
   TF_DIR: 'tf_azure'
-#   AZURE_FUNCTIONAPP_NAME: tfewc-function
-#   AZURE_FUNCTIONAPP_PACKAGE_PATH: EvilWeatherControlApp\published
-#   CONFIGURATION: Release
-#   DOTNET_VERSION: 6.0.x
-#   WORKING_DIRECTORY: EvilWeatherControlApp
-#   TESTING_DIRECTORY: EvilWeatherControlApp.Tests
+  # AZURE_FUNCTIONAPP_NAME: tfewc-function
+  # AZURE_FUNCTIONAPP_PACKAGE_PATH: EvilWeatherControlApp\published
+  # CONFIGURATION: Release
+  # DOTNET_VERSION: 6.0.x
+  # WORKING_DIRECTORY: EvilWeatherControlApp
+  # TESTING_DIRECTORY: EvilWeatherControlApp.Tests\
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 jobs:
   terraform:
@@ -26,7 +30,13 @@ jobs:
       - name: 'Terraform Cloud access'
         uses: hashicorp/setup-terraform@v3
         with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}    
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      # Format terraform configuration files into a canonical format and style
+      - name: 'Terraform Format'
+        working-directory: ${{ env.TF_DIR }}
+        id: fmt
+        run: terraform fmt
  
       - name: 'Terraform Init'
         working-directory: ${{ env.TF_DIR }}
@@ -68,6 +78,8 @@ jobs:
             az storage -h
 
 # TODO:
+# - CHECK how TF could authenticate to AZURE?! 
+# LIST SERVICE PRINCIPALS: https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-4?tabs=bash
 # - Compare CORP TF files with this repo
 # - SELF-HOSTED RUNNER:
 #   - CLI or pre-defined workflows (check action github marketplace)

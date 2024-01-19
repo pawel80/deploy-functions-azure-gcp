@@ -5,4 +5,10 @@ Github runners:
 - hosted for Azure and GCP deployments
 - self-hosted for on-prem deployment
 
+Azure: service principal with secrets
+GCP: service account key JSON
+On-prem: TODO
+
+Terraform state will be kept in Terraform Cloud (instead of Azure or GCP storage).
+
 doc test: `py -3.9 -m venv .venv`
