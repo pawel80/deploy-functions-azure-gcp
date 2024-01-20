@@ -21,7 +21,7 @@ env:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform setup'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
@@ -59,6 +59,8 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
   build-and-deploy:
+    name: 'Build and deploy'
+    needs: terraform
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout'
@@ -75,7 +77,6 @@ jobs:
         azcliversion: 2.30.0
         inlineScript: |
             az account show
-            az storage -h
 
 # TODO:
 # - CHECK how TF could authenticate to AZURE?! 
