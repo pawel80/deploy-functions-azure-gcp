@@ -4,7 +4,7 @@
 variable "resource_group_name" {
   description = "Resource group name"
   type = string
-  default = "RG-LAB-TF-FUNC"
+  default = "RG-TF-TEST-FUNC"
 }
 
 variable "resource_group_location" {
