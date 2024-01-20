@@ -80,7 +80,6 @@ jobs:
 
 # TODO:
 # - CHECK how TF could authenticate to AZURE?! 
-# LIST SERVICE PRINCIPALS: https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-4?tabs=bash
 # - Compare CORP TF files with this repo
 # - SELF-HOSTED RUNNER:
 #   - CLI or pre-defined workflows (check action github marketplace)
