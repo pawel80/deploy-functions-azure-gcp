@@ -42,7 +42,7 @@ jobs:
         id: fmt
         run: terraform fmt
  
-      # - name: 'Terraform Init'
+      - name: 'Terraform Init'
         working-directory: ${{ env.TF_DIR }}
         id: init
         run: terraform init
