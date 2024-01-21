@@ -53,18 +53,18 @@ jobs:
         # -no-color -> Disables terminal formatting sequences in the output
         run: terraform validate -no-color
 
-      - name: 'Terraform Plan'
-        working-directory: ${{ env.TF_DIR }}
-        id: plan
-        # -no-color -> Disables terminal formatting sequences in the output
-        run: terraform plan -no-color
-        continue-on-error: true
+      # - name: 'Terraform Plan'
+      #   working-directory: ${{ env.TF_DIR }}
+      #   id: plan
+      #   # -no-color -> Disables terminal formatting sequences in the output
+      #   run: terraform plan -no-color
+      #   continue-on-error: true
  
-      - name: 'Terraform Apply'
-        working-directory: ${{ env.TF_DIR }}
-        # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
-        # -input=false -> Disables Terraform's default behavior of prompting for input
-        run: terraform apply -auto-approve -input=false
+      # - name: 'Terraform Apply'
+      #   working-directory: ${{ env.TF_DIR }}
+      #   # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
+      #   # -input=false -> Disables Terraform's default behavior of prompting for input
+      #   run: terraform apply -auto-approve -input=false
 
   build-and-deploy:
     name: 'Build and deploy'
