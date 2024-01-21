@@ -12,10 +12,10 @@ env:
   # ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
   # ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
   # ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-  TF_VAR_ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-  TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-  TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
-  TF_VAR_ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  # TF_VAR_ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  # TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  # TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+  # TF_VAR_ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 jobs:
   terraform:
@@ -30,7 +30,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-          terraform_version: 1.6.6
+          terraform_version: 1.7.0
 
       # Format terraform configuration files into a canonical format and style
       - name: 'Terraform Format'
@@ -54,6 +54,11 @@ jobs:
         id: plan
         # -no-color -> Disables terminal formatting sequences in the output
         run: terraform plan -no-color
+        env:
+          TF_VAR_ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+          TF_VAR_ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         continue-on-error: true
  
       - name: 'Terraform Apply'
@@ -61,6 +66,11 @@ jobs:
         # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
         # -input=false -> Disables Terraform's default behavior of prompting for input
         run: terraform apply -auto-approve -input=false
+        env:
+          TF_VAR_ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+          TF_VAR_ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
   build-and-deploy:
     name: 'Build and deploy'
