@@ -5,22 +5,23 @@ terraform {
       # version = "~> 3.87.0"
     }
   }
-  # cloud {} block is needed only when you want to use Terraform CLI to interact with Terraform Cloud
-  # cloud {
+  # cloud {} block is needed when you want to use Terraform CLI to interact with Terraform Cloud
+  cloud {
+    organization = "tf-pawel-org"
+    workspaces {
+      name = "tf-azure"
+    }
+  }
+  # }
+
+  # if cloud {} is configured, then backend "remote" should be omitted
+  # if remote backend is configured, it needs to know the Azure credentials
+  # backend "remote" {
   #   organization = "tf-pawel-org"
   #   workspaces {
   #     name = "tf-public-cloud"
   #   }
   # }
-
-  # if cloud {} is configured, then backend "remote" should be omitted
-  # if remote backend is configured, it needs to know the Azure credentials
-  backend "remote" {
-    organization = "tf-pawel-org"
-    workspaces {
-      name = "tf-public-cloud"
-    }
-  }
   # backend "azurerm" {
   #   resource_group_name  = "RG-MN-TF-STORAGE"
   #   storage_account_name = "abcd1234"
