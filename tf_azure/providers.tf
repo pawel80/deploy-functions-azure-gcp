@@ -16,7 +16,6 @@ terraform {
   # if cloud {} is configured, then backend "remote" should be omitted
   backend "remote" {
     organization = "tf-pawel-org"
-
     workspaces {
       name = "tf-public-cloud"
     }
