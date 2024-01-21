@@ -14,6 +14,7 @@ terraform {
   # }
 
   # if cloud {} is configured, then backend "remote" should be omitted
+  # if remote backend is configured, it needs to know the Azure credentials
   backend "remote" {
     organization = "tf-pawel-org"
     workspaces {
@@ -30,8 +31,8 @@ terraform {
 
 provider "azurerm" {
   features {}
-  # subscription_id   = "<azure_subscription_id>"
-  # tenant_id         = "<azure_subscription_tenant_id>"
-  # client_id         = "<service_principal_appid>"
-  # client_secret     = "<service_principal_password>"
+  subscription_id   = var.ARM_SUBSCRIPTION_ID
+  tenant_id         = var.ARM_TENANT_ID
+  client_id         = var.ARM_CLIENT_ID
+  client_secret     = var.ARM_CLIENT_SECRET
 }
