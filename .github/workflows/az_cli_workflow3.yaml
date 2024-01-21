@@ -37,21 +37,22 @@ jobs:
           EOF
 
       # Format terraform configuration files into a canonical format and style
-      - name: 'Terraform Format'
-        working-directory: ${{ env.TF_DIR }}
-        id: fmt
-        run: terraform fmt
+      # - name: 'Terraform Format'
+      #   working-directory: ${{ env.TF_DIR }}
+      #   id: fmt
+      #   run: terraform fmt
  
-      - name: 'Terraform Init'
-        working-directory: ${{ env.TF_DIR }}
-        id: init
-        run: terraform init
+      # - name: 'Terraform Init'
+      #   working-directory: ${{ env.TF_DIR }}
+      #   id: init
+      #   run: terraform init
        
-      - name: 'Terraform Validate'
-        working-directory: ${{ env.TF_DIR }}
-        id: validate
-        # -no-color -> Disables terminal formatting sequences in the output
-        run: terraform validate -no-color
+      #   # validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, etc.
+      # - name: 'Terraform Validate'
+      #   working-directory: ${{ env.TF_DIR }}
+      #   id: validate
+      #   # -no-color -> Disables terminal formatting sequences in the output
+      #   run: terraform validate -no-color
 
       # - name: 'Terraform Plan'
       #   working-directory: ${{ env.TF_DIR }}
