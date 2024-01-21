@@ -16,13 +16,6 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
- 
-      # Install terraform, eventually provide credentials to the cloud 
-      # - name: 'Terraform initial setup'
-      #   uses: hashicorp/setup-terraform@v3
-      #   with:
-      #     cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      #     terraform_version: 1.7.0
 
       # Currently the only working method of passing variables to Terraform backend
       - name: 'Terraform cloud variables'
@@ -36,6 +29,13 @@ jobs:
           ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
           EOF
 
+      # Install terraform, eventually provide credentials to the cloud 
+      # - name: 'Terraform initial setup'
+      #   uses: hashicorp/setup-terraform@v3
+      #   with:
+      #     cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      #     terraform_version: 1.7.0
+
       # Format terraform configuration files into a canonical format and style
       # - name: 'Terraform Format'
       #   working-directory: ${{ env.TF_DIR }}
@@ -47,7 +47,7 @@ jobs:
       #   id: init
       #   run: terraform init
        
-      #   # validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, etc.
+      #   Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, etc.
       # - name: 'Terraform Validate'
       #   working-directory: ${{ env.TF_DIR }}
       #   id: validate
