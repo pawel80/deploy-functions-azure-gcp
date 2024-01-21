@@ -8,10 +8,6 @@ on:
 
 env:
   TF_DIR: 'tf_azure'
-  # ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-  # ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-  # ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
-  # ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 jobs:
   terraform:
@@ -28,6 +24,7 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_version: 1.7.0
 
+      # Currently the only working method of passing variables to Terraform backend
       - name: 'Terraform cloud variables'
         working-directory: ${{ env.TF_DIR }}
         id: vars
