@@ -6,6 +6,7 @@ terraform {
     }
   }
   # cloud {} block is needed when you want to use Terraform CLI to interact with Terraform Cloud
+  # protected by Terraform API token
   cloud {
     organization = "tf-pawel-org"
     workspaces {

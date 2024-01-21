@@ -29,7 +29,7 @@ jobs:
           ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
           EOF
 
-      # Install terraform, eventually provide credentials to the cloud 
+      # Install Terraform, provide credentials to the cloud 
       - name: 'Terraform initial setup'
         uses: hashicorp/setup-terraform@v3
         with:
@@ -42,25 +42,27 @@ jobs:
         id: fmt
         run: terraform fmt
  
+      # Initializes a working directory containing Terraform configuration files
       - name: 'Terraform Init'
         working-directory: ${{ env.TF_DIR }}
         id: init
         run: terraform init
        
-      #   Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, etc.
+      # Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, etc.
       - name: 'Terraform Validate'
         working-directory: ${{ env.TF_DIR }}
         id: validate
         # -no-color -> Disables terminal formatting sequences in the output
         run: terraform validate -no-color
 
+      # Creates an execution plan, which lets you preview the changes that Terraform plans to make to your infrastructure
       - name: 'Terraform Plan'
         working-directory: ${{ env.TF_DIR }}
         id: plan
-        # -no-color -> Disables terminal formatting sequences in the output
         run: terraform plan -no-color
         continue-on-error: true
  
+      # Executes the actions proposed in a Terraform plan
       - name: 'Terraform Apply'
         working-directory: ${{ env.TF_DIR }}
         # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
