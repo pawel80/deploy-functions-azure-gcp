@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       # Currently the only working method of passing variables to Terraform backend
+      # Below we are passing Azure credentials so TF could deploy environment
       - name: 'Terraform cloud variables'
         working-directory: ${{ env.TF_DIR }}
         id: vars
@@ -29,7 +30,8 @@ jobs:
           ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
           EOF
 
-      # Install Terraform, provide credentials to the cloud 
+      # Install Terraform, provide credentials to the cloud
+      # Terraform API driven workflow
       - name: 'Terraform initial setup'
         uses: hashicorp/setup-terraform@v3
         with:
@@ -90,12 +92,10 @@ jobs:
             az account show
 
 # TODO:
-# - CHECK how TF could authenticate to AZURE?! -> move credentials from workflow to tf providers file
-# - Compare CORP TF files with this repo
 # - SELF-HOSTED RUNNER:
+#   - Add python and dependencies as TASK
 #   - CLI or pre-defined workflows (check action github marketplace)
 #     - deploy on-prem Function?
 
 # A common pattern is to have one workflow with separate jobs to build/test, and then deploy. You can put a condition on the deploy job (e.g. "run only on tags").
-
 # If build is ok, move to test, if test is ok, move to deploy: Azure/GCP
