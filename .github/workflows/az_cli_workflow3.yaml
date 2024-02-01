@@ -91,9 +91,9 @@ jobs:
 
 # TODO:
 # - SELF-HOSTED RUNNER:
+#   - Add python and dependencies as TASK
 #   - CLI or pre-defined workflows (check action github marketplace)
 #     - deploy on-prem Function?
 
 # A common pattern is to have one workflow with separate jobs to build/test, and then deploy. You can put a condition on the deploy job (e.g. "run only on tags").
-
 # If build is ok, move to test, if test is ok, move to deploy: Azure/GCP
