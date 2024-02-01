@@ -90,8 +90,6 @@ jobs:
             az account show
 
 # TODO:
-# - CHECK how TF could authenticate to AZURE?! -> move credentials from workflow to tf providers file
-# - Compare CORP TF files with this repo
 # - SELF-HOSTED RUNNER:
 #   - CLI or pre-defined workflows (check action github marketplace)
 #     - deploy on-prem Function?
