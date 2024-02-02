@@ -24,10 +24,10 @@ jobs:
       - name: 'Set the Azure variable values'
         id: vars
         run: |
-          echo "ARM_TENANT_ID='${{ secrets.AZURE_TENANT_ID }}'" >> "$GITHUB_ENV"
-          echo "ARM_SUBSCRIPTION_ID='${{ secrets.AZURE_SUB_ID }}'" >> "$GITHUB_ENV"
-          echo "ARM_CLIENT_ID='${{ secrets.AZURE_CLIENT_ID }}'" >> "$GITHUB_ENV"
-          echo "ARM_CLIENT_SECRET='${{ secrets.AZURE_CLIENT_SECRET }}'" >> "$GITHUB_ENV"
+          echo ARM_TENANT_ID='${{ secrets.AZURE_TENANT_ID }}' >> "$GITHUB_ENV"
+          echo ARM_SUBSCRIPTION_ID='${{ secrets.AZURE_SUB_ID }}' >> "$GITHUB_ENV"
+          echo ARM_CLIENT_ID='${{ secrets.AZURE_CLIENT_ID }}' >> "$GITHUB_ENV"
+          echo ARM_CLIENT_SECRET='${{ secrets.AZURE_CLIENT_SECRET }}' >> "$GITHUB_ENV"
 
       # Currently the only working method of passing variables to Terraform backend
       # I'm creating workflow.auto.tfvars file so TF could read all of the variables
