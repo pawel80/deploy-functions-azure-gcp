@@ -1,4 +1,4 @@
-name: TF_Azure_Functions
+name: TF_Azure_Function
 
 on:
   push:

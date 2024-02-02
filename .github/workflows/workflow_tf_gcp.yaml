@@ -1,0 +1,62 @@
+name: TF_GCP_Function
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+
+env:
+  TF_DIR: 'tf_gcp'
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      # Currently the only working method of passing variables to Terraform backend
+      # Below we are passing GCP credentials so TF could deploy environment
+      # Instead of secrets.SECRET we could also use vars.VAR for not sensitive data
+      - name: 'Terraform cloud variables'
+        working-directory: ${{ env.TF_DIR }}
+        id: vars
+        run: |-
+          cat > workflow.auto.tfvars <<EOF
+          GCP_CREDENTIALS = "${{ secrets.GCP_CREDENTIALS }}"
+          GCP_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
+          # GCP_REGION = "${{ secrets.GCP_REGION }}"
+          # GCP_ZONE = "${{ secrets.GCP_ZONE }}"
+          EOF
+    
+      # Install Terraform, provide credentials to the cloud
+      # Terraform API driven workflow
+      - name: 'Terraform initial setup'
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_version: 1.7.0
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+
+#     - name: 'Checkout'
+#       uses: 'actions/checkout@v4'
+
+#     - name: 'Log in with GCP'
+#       uses: 'google-github-actions/auth@v2'
+#       with:
+#         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+    # - name: 'Set up Cloud SDK'
+    #   uses: 'google-github-actions/setup-gcloud@v2'
+    #   with:
+    #     # version: '>= 459.0.0'
+    #     version: 'latest'
+
+    # - name: 'Use gcloud CLI'
+    #   run: 'gcloud info'
