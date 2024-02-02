@@ -5,7 +5,7 @@ terraform {
       # version = "~> 3.83.0"
     }
   }
-  # Terraform
+  # Terraform cloud
   cloud {
     organization = "tf-pawel-org"
     workspaces {
@@ -15,7 +15,6 @@ terraform {
 }
 
 provider "google" {
-  # features {}
   credentials = "${var.GCP_CREDENTIALS}"
   project     = "${var.GCP_PROJECT_ID}"
   # region      = var.GCP_REGION
