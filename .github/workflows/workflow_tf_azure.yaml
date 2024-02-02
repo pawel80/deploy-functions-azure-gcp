@@ -61,12 +61,22 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         id: validate
         # -no-color -> Disables terminal formatting sequences in the output
+        env:
+          ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+          ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUB_ID }}"
+          ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+          ARM_CLIENT_SECRET: "${{ secrets.AZURE_CLIENT_SECRET }}"
         run: terraform validate -no-color
 
       # Creates an execution plan, which lets you preview the changes that Terraform plans to make to your infrastructure
       - name: 'Terraform Plan'
         working-directory: ${{ env.TF_DIR }}
         id: plan
+        env:
+          ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+          ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUB_ID }}"
+          ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+          ARM_CLIENT_SECRET: "${{ secrets.AZURE_CLIENT_SECRET }}"
         run: terraform plan -no-color
         continue-on-error: true
  
@@ -75,6 +85,11 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
         # -input=false -> Disables Terraform's default behavior of prompting for input
+        env:
+          ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+          ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUB_ID }}"
+          ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+          ARM_CLIENT_SECRET: "${{ secrets.AZURE_CLIENT_SECRET }}"
         run: terraform apply -auto-approve -input=false
 
   build-and-deploy:
