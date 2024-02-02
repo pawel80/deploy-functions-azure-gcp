@@ -18,8 +18,9 @@ jobs:
         uses: actions/checkout@v4
 
       # Currently the only working method of passing variables to Terraform backend
-      # Below we are passing GCP credentials so TF could deploy environment
-      # Instead of secrets.SECRET we could also use vars.VAR for not sensitive data
+      # I'm creating workflow.auto.tfvars file so TF could read all of the variables
+      # All secrets are stored in Github Action Secrets
+      # Instead of secrets we could also use vars for not sensitive data
       - name: 'Terraform cloud variables'
         working-directory: ${{ env.TF_DIR }}
         id: vars
