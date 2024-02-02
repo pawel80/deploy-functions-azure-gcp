@@ -8,10 +8,6 @@ on:
 
 env:
   TF_DIR: 'tf_azure'
-  ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
-  ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUB_ID }}"
-  ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
-  ARM_CLIENT_SECRET: "${{ secrets.AZURE_CLIENT_SECRET }}"
 
 jobs:
   terraform:
@@ -53,6 +49,11 @@ jobs:
       - name: 'Terraform Init'
         working-directory: ${{ env.TF_DIR }}
         id: init
+        env:
+          ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+          ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUB_ID }}"
+          ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+          ARM_CLIENT_SECRET: "${{ secrets.AZURE_CLIENT_SECRET }}"
         run: terraform init
        
       # Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, etc.
