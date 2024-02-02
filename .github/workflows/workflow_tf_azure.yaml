@@ -27,6 +27,7 @@ jobs:
 
       # Currently the only working method of passing variables to Terraform backend
       # I'm creating workflow.auto.tfvars file so TF could read all of the variables
+      # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
       - name: 'Terraform cloud variables'
         working-directory: ${{ env.TF_DIR }}
