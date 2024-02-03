@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "rg_func" {
-    name = "${var.resource_group_name}"
-    location = "${var.resource_group_location}"
+# In GCP there are no RG, resources are places in Projects
+resource "google_compute_network" "vpc_network" {
+  name = "terraform-network"
 }
