@@ -17,35 +17,32 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v4
 
-      - name: 'Set the Azure variable values for Terraform'
-        id: vars
-        run: |
-          echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> "$GITHUB_ENV"
-          echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUB_ID }}" >> "$GITHUB_ENV"
-          echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> "$GITHUB_ENV"
-          echo "ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> "$GITHUB_ENV"
+      # Below step will not work for Terraform Cloud
+      # - name: 'Set the Azure variable values for Terraform'
+      #   id: vars
+      #   run: |
+      #     echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> "$GITHUB_ENV"
+      #     echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUB_ID }}" >> "$GITHUB_ENV"
+      #     echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> "$GITHUB_ENV"
+      #     echo "ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> "$GITHUB_ENV"
 
-      - name: 'Display global variables: $GITHUB_ENV'
-        run: |
-            env
-            echo $ARM_TENANT_ID
-            echo $ARM_SUBSCRIPTION_ID
-            echo ${{ env.TF_DIR }}
+      # - name: 'Display global variables GITHUB_ENV'
+      #   run: |
+      #       env
 
-      # Currently the only working method of passing variables to Terraform backend
-      # I'm creating workflow.auto.tfvars file so TF could read all of the variables
+      # I'm creating workflow.auto.tfvars file so Terraform could read all of the variables
       # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
-      # - name: 'Terraform cloud variables'
-      #   working-directory: ${{ env.TF_DIR }}
-      #   id: vars
-      #   run: |-
-      #     cat > workflow.auto.tfvars <<EOF
-      #     ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
-      #     ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
-      #     ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
-      #     ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
-      #     EOF
+      - name: 'Terraform cloud variables'
+        working-directory: ${{ env.TF_DIR }}
+        id: vars
+        run: |-
+          cat > workflow.auto.tfvars <<EOF
+          ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
+          ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
+          ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
+          ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
+          EOF
 
       # Install Terraform, provide credentials to the cloud
       # Terraform API driven workflow
