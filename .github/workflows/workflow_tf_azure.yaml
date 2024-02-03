@@ -28,7 +28,7 @@ jobs:
           echo "ARM_SUBSCRIPTION_ID = $ARM_SUBSCRIPTION_ID" >> '$GITHUB_ENV'
           echo "ARM_CLIENT_ID = $ARM_CLIENT_ID" >> '$GITHUB_ENV'
           echo "ARM_CLIENT_SECRET = $ARM_CLIENT_SECRET" >> '$GITHUB_ENV'
-          echo "AAA_TEST_AAA=1234567890" >> "$GITHUB_ENV"
+          echo "AAA_TEST_AAA = 1234567890" >> "$GITHUB_ENV"
 
       - name: 'Display global variables: $GITHUB_ENV'
         run: |
