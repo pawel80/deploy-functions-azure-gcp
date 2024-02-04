@@ -25,7 +25,7 @@ jobs:
         id: vars
         run: |-
           cat > workflow.auto.tfvars <<EOF
-          GCP_CREDENTIALS = "${{ secrets.GCP_CREDENTIALS }}"
+          GCP_CREDENTIALS = '${{ secrets.GCP_CREDENTIALS }}'
           GCP_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
           EOF
     
