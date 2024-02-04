@@ -25,8 +25,8 @@ jobs:
         id: vars
         run: |-
           cat > workflow.auto.tfvars <<EOF
-          GCP_CREDENTIALS = "${{ secrets.GCP_CREDENTIALS }}"
-          GCP_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
+          GOOGLE_CREDENTIALS = "${{ secrets.GCP_CREDENTIALS }}"
+          GOOGLE_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
           EOF
     
       # Install Terraform, provide credentials to the cloud
