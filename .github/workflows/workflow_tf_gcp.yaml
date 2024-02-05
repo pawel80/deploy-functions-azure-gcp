@@ -34,7 +34,7 @@ jobs:
       - name: 'Terraform initial setup'
         uses: hashicorp/setup-terraform@v3
         with:
-          # cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_version: 1.7.2
 
       # Format terraform configuration files into a canonical format and style
@@ -62,6 +62,9 @@ jobs:
         id: plan
         run: terraform plan -no-color
         continue-on-error: true
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
  
       # Executes the actions proposed in a Terraform plan
       - name: 'Terraform Apply'
@@ -69,6 +72,8 @@ jobs:
         # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
         # -input=false -> Disables Terraform's default behavior of prompting for input
         run: terraform apply -auto-approve -input=false
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
   build-and-deploy:
     name: 'Build and deploy'
