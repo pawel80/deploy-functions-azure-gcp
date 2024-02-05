@@ -17,6 +17,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v4
 
+      # NEW
       # I'm creating workflow.auto.tfvars file so Terraform could read all of the variables
       # All secrets are stored in Github Action Secrets
       # Instead of secrets we could also use vars for not sensitive data
