@@ -28,7 +28,7 @@ jobs:
           GOOGLE_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
           EOF
     
-      # Install Terraform, provide credentials to the cloud
+      # Install Terraform, provide credentials to the cloud (for state control)
       # Terraform API driven workflow
       - name: 'Terraform initial setup'
         uses: hashicorp/setup-terraform@v3
@@ -47,8 +47,6 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         id: init
         run: terraform init
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
        
       # Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, etc.
       - name: 'Terraform Validate'
@@ -56,8 +54,6 @@ jobs:
         id: validate
         # -no-color -> Disables terminal formatting sequences in the output
         run: terraform validate -no-color
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
       # Creates an execution plan, which lets you preview the changes that Terraform plans to make to your infrastructure
       - name: 'Terraform Plan'
