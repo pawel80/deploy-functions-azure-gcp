@@ -34,7 +34,7 @@ jobs:
       - name: 'Terraform initial setup'
         uses: hashicorp/setup-terraform@v3
         with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          # cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_version: 1.7.2
 
       # Format terraform configuration files into a canonical format and style
