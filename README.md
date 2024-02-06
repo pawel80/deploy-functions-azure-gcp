@@ -1,16 +1,17 @@
 # Azure, GCP, on-prem deployment
-Build and deploy Function type of service in Azure, GCP and on-prem infra.  
-Each deployment is in a separate workflow file.  
-Each workflow works independent from each other.  
+Terraform, build and deploy Function type of service in Azure, GCP and on-prem infra.  
+Each deployment is in a separate workflow (.yaml) file.  
+Each workflow runs independent from each other.  
 All jobs in the workflow start in pararel (unless stated different `needs:`)  
 
-Github runners:  
+Github runners:
 - hosted for Azure and GCP deployments  
 - self-hosted for on-prem deployment  
 
-Azure: service principal with secrets  
-GCP: service account key JSON  
-On-prem: TODO
+Authentication methods:
+- Azure: service principal with secrets  
+- GCP: service account key JSON  
+- on-prem: TODO
 
 Terraform state will be kept in Terraform Cloud (instead of Azure or GCP storage).  
 
