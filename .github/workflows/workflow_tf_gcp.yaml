@@ -17,15 +17,15 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v4
 
-      # I'm creating workflow.auto.tfvars file so Terraform could read all of the variables
+      # I'm creating workflow.auto.tfvars file so Terraform could read GOOGLE_PROJECT_ID variable
       # GOOGLE_CREDENTIALS = "${{ secrets.GCP_CREDENTIALS }}" will not work
-      # - name: 'Terraform cloud variables'
-      #   working-directory: ${{ env.TF_DIR }}
-      #   id: vars
-      #   run: |-
-      #     cat > workflow.auto.tfvars <<EOF
-      #     GOOGLE_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
-      #     EOF
+      - name: 'Terraform cloud variables'
+        working-directory: ${{ env.TF_DIR }}
+        id: vars
+        run: |-
+          cat > workflow.auto.tfvars <<EOF
+          GOOGLE_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
+          EOF
     
       # Install Terraform, provide credentials to the cloud (for state control)
       # Terraform API driven workflow
@@ -62,7 +62,6 @@ jobs:
         continue-on-error: true
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-          GOOGLE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
  
       # Executes the actions proposed in a Terraform plan
@@ -73,7 +72,7 @@ jobs:
         run: terraform apply -auto-approve -input=false
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-          GOOGLE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
 
   build-and-deploy:
     name: 'Build and deploy'
