@@ -10,8 +10,8 @@ variable "GOOGLE_PROJECT_ID" {
   default = ""
 }
 
-variable "gcp_region" {
+variable "GOOGLE_REGION" {
   description = "Google Cloud region"
   type    = string
-  default = "europe-central2"
+  default = ""
 }
