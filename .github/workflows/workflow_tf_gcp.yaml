@@ -12,7 +12,9 @@ env:
 jobs:
   terraform:
     name: 'Terraform'
-    if: github.repository == 'dev'
+    # refs/pull/<pr_number>/merge
+    # refs/tags/<tag_name>
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
