@@ -12,6 +12,7 @@ env:
 jobs:
   terraform:
     name: 'Terraform'
+    if: github.repository == 'dev'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
@@ -96,5 +97,3 @@ jobs:
 
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
-
-# SET ENV globally - TEST

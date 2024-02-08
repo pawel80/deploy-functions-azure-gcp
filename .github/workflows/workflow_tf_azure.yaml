@@ -12,6 +12,7 @@ env:
 jobs:
   terraform:
     name: 'Terraform'
+    if: github.repository == 'dev'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
