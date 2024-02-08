@@ -2,6 +2,7 @@ name: TF_Azure_Function
 
 on:
   push:
+  # workflow will run only if below branches will be updated
     branches:
       - 'main'
       - 'dev'
@@ -9,10 +10,26 @@ on:
 env:
   TF_DIR: 'tf_azure'
 
+# TO BE DEPLOYED
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Execute tests
+#         run: exit 0
+#   deploy:
+#     runs-on: ubuntu-latest
+#     needs: test
+#     if: github.ref == 'refs/heads/master'
+#     steps:
+#       - name: Deploy app
+
 jobs:
   terraform:
     name: 'Terraform'
-    if: github.repository == 'dev'
+    # refs/pull/<pr_number>/merge
+    # refs/tags/<tag_name>
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
@@ -31,19 +48,19 @@ jobs:
       #   run: |
       #       env
 
-      # I'm creating workflow.auto.tfvars file so Terraform could read all of the variables
+      # Azure credentials could be pass to TF via auto.vars or as step (plan and apply) env
       # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
-      - name: 'Terraform cloud variables'
-        working-directory: ${{ env.TF_DIR }}
-        id: vars
-        run: |-
-          cat > workflow.auto.tfvars <<EOF
-          ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
-          ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
-          ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
-          ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
-          EOF
+      # - name: 'Terraform cloud variables'
+      #   working-directory: ${{ env.TF_DIR }}
+      #   id: vars
+      #   run: |-
+      #     cat > workflow.auto.tfvars <<EOF
+      #     ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
+      #     ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
+      #     ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
+      #     ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
+      #     EOF
 
       # Install Terraform, provide credentials to the cloud
       # Terraform API driven workflow
@@ -78,6 +95,12 @@ jobs:
         id: plan
         run: terraform plan -no-color
         continue-on-error: true
+        env:
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
  
       # Executes the actions proposed in a Terraform plan
       - name: 'Terraform Apply'
@@ -85,6 +108,11 @@ jobs:
         # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
         # -input=false -> Disables Terraform's default behavior of prompting for input
         run: terraform apply -auto-approve -input=false
+        env:
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
   build-and-deploy:
     name: 'Build and deploy'
@@ -107,6 +135,7 @@ jobs:
             az account show
 
 # TODO:
+# - deploy test related job
 # - SELF-HOSTED RUNNER:
 #   - Add python and dependencies as TASK
 #   - CLI or pre-defined workflows (check action github marketplace)
