@@ -10,6 +10,7 @@ on:
 env:
   TF_DIR: 'tf_azure'
 
+# TO BE DEPLOYED
 # jobs:
 #   test:
 #     runs-on: ubuntu-latest
