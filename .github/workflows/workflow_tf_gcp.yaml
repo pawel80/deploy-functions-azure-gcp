@@ -77,7 +77,7 @@ jobs:
 
   build-and-deploy:
     name: 'Build and deploy'
-    # needs: terraform
+    needs: terraform
     runs-on: ubuntu-latest
     steps:
 
