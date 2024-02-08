@@ -48,7 +48,7 @@ jobs:
       #   run: |
       #       env
 
-      # TEST without below code
+      # TEST without below code 2
       # I'm creating workflow.auto.tfvars file so Terraform could read all of the variables
       # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
