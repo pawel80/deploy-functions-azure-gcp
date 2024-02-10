@@ -10,6 +10,7 @@ on:
 env:
   TF_DIR: 'tf_azure'
   TF_DEV_ENV: 'DEV'
+  TF_DEV_RESOURCE: 'dev'
   TF_PROD_ENV: 'PROD'
 
 # TO BE DEPLOYED
@@ -50,15 +51,16 @@ jobs:
       #   run: |
       #       env
 
-      # Azure credentials could be pass to TF via auto.vars or as step (plan and apply) env
+      # Azure credentials could be pass to TF via auto.vars or as step (plan and apply) in env:
       # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
       - name: 'Terraform cloud variables'
         working-directory: ${{ env.TF_DIR }}
         id: vars
-        run: |-
+        run: |
           cat > workflow.auto.tfvars <<EOF
           env_prefix = "${{ env.TF_DEV_ENV }}"
+          resource_prefix = "{{ env.TF_DEV_RESOURCE }}"
           # ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
           # ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
           # ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
