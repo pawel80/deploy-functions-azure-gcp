@@ -9,7 +9,7 @@ on:
 
 env:
   TF_DIR: 'tf_azure'
-  TF_DEV_ENV: 'RG-FT-DEV'
+  TF_DEV_ENV: 'RG-TF-DEV-FUNCTION'
   TF_PROD_ENV: 'PROD'
 
 # TO BE DEPLOYED
@@ -58,7 +58,7 @@ jobs:
         id: vars
         run: |-
           cat > workflow.auto.tfvars <<EOF
-          AZ_ENV = "${{ env.TF_DEV_ENV }}"
+          rg_name = "${{ env.TF_DEV_ENV }}"
           # ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
           # ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
           # ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"

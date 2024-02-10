@@ -22,13 +22,19 @@
 #   default = ""  
 # }
 
-variable "resource_group_name" {
+# variable "resource_group_name" {
+#   description = "Resource group name"
+#   type = string
+#   default = "${var.AZ_ENV}-FUNCTION"
+# }
+
+variable "rg_name" {
   description = "Resource group name"
   type = string
-  default = "${var.AZ_ENV}-FUNCTION"
+  default = ""
 }
 
-variable "resource_group_location" {
+variable "rg_location" {
   description = "Resource group location"
   type = string
   # default = "westeurope"

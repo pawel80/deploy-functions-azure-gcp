@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg_func" {
-    name = "${var.resource_group_name}"
-    location = "${var.resource_group_location}"
+    name = "${var.rg_name}"
+    location = "${var.rg_location}"
 }
 
 # resource "azurerm_storage_account" "example" {
