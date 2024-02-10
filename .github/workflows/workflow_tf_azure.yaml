@@ -9,7 +9,7 @@ on:
 
 env:
   TF_DIR: 'tf_azure'
-  TF_DEV_ENV: 'DEV'
+  TF_DEV_ENV: 'RG-FT-DEV'
   TF_PROD_ENV: 'PROD'
 
 # TO BE DEPLOYED

@@ -25,7 +25,7 @@
 variable "resource_group_name" {
   description = "Resource group name"
   type = string
-  default = "RG-TF-${var.AZ_ENV}-FUNCTION"
+  default = "${var.AZ_ENV}-FUNCTION"
 }
 
 variable "resource_group_location" {
