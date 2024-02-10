@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rg_func" {
-    name = "${var.rg_name}"
+    name = "RG-TF-${var.env_prefix}-FUNCTION"
     location = "${var.rg_location}"
 }
 

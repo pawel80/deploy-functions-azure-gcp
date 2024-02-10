@@ -28,6 +28,12 @@
 #   default = "${var.AZ_ENV}-FUNCTION"
 # }
 
+variable "env_prefix" {
+  description = "Environment prefix"
+  type = string
+  default = ""
+}
+
 variable "rg_name" {
   description = "Resource group name"
   type = string
