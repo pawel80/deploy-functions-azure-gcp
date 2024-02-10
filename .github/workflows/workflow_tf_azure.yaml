@@ -9,6 +9,8 @@ on:
 
 env:
   TF_DIR: 'tf_azure'
+  TF_DEV_ENV: 'DEV'
+  TF_PROD_ENV: 'PROD'
 
 # TO BE DEPLOYED
 # jobs:
@@ -51,16 +53,17 @@ jobs:
       # Azure credentials could be pass to TF via auto.vars or as step (plan and apply) env
       # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
-      # - name: 'Terraform cloud variables'
-      #   working-directory: ${{ env.TF_DIR }}
-      #   id: vars
-      #   run: |-
-      #     cat > workflow.auto.tfvars <<EOF
-      #     ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
-      #     ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
-      #     ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
-      #     ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
-      #     EOF
+      - name: 'Terraform cloud variables'
+        working-directory: ${{ env.TF_DIR }}
+        id: vars
+        run: |-
+          cat > workflow.auto.tfvars <<EOF
+          AZ_ENV = "${{ env.TF_DEV_ENV }}"
+          # ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
+          # ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
+          # ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
+          # ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
+          EOF
 
       # Install Terraform, provide credentials to the cloud
       # Terraform API driven workflow
@@ -136,6 +139,7 @@ jobs:
 
 # TODO:
 # - deploy test related job
+# - ADD ENV TAG per deployment
 # - SELF-HOSTED RUNNER:
 #   - Add python and dependencies as TASK
 #   - CLI or pre-defined workflows (check action github marketplace)
