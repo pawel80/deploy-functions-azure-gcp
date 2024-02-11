@@ -3,13 +3,17 @@ resource "azurerm_resource_group" "rg_func" {
     location = "${var.rg_location}"
 }
 
-# resource "azurerm_storage_account" "example" {
-#   name                     = "linuxfunctionappsa"
-#   resource_group_name      = azurerm_resource_group.example.name
-#   location                 = azurerm_resource_group.example.location
-#   account_tier             = "Standard"
-#   account_replication_type = "LRS"
-# }
+resource "random_id" "random_suffix" {
+    byte_length = 4
+}
+
+resource "azurerm_storage_account" "example" {
+  name                     = "tf-${var.resource_prefix}-storage-${random_id.random_suffix.hex}"
+  resource_group_name      = azurerm_resource_group.rg_func.name
+  location                 = azurerm_resource_group.rg_func.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
 
 # resource "azurerm_service_plan" "example" {
 #   name                = "example-app-service-plan"

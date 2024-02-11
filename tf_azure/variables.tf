@@ -28,6 +28,12 @@ variable "env_prefix" {
   default = ""
 }
 
+variable "resource_prefix" {
+  description = "Resource prefix"
+  type = string
+  default = ""
+}
+
 variable "rg_name" {
   description = "Resource group name"
   type = string
