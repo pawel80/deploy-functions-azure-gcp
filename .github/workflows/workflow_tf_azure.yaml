@@ -60,7 +60,7 @@ jobs:
         run: |
           cat > workflow.auto.tfvars <<EOF
           env_prefix = "${{ env.TF_DEV_ENV }}"
-          resource_prefix = "{{ env.TF_DEV_RESOURCE }}"
+          resource_prefix = "${{ env.TF_DEV_RESOURCE }}"
           # ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
           # ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
           # ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
