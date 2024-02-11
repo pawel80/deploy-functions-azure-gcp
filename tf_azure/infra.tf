@@ -15,14 +15,15 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
 }
 
-# The Y1 Consumption plan includes a monthly free grant of 1 million requests and 
+# Y1: Consumption plan includes a monthly free grant of 1 million requests and 
 # 400,000 GB-seconds of resource consumption per month per subscription
+# F1: free tier with resource cap
 resource "azurerm_service_plan" "svc_plan" {
   name                = "tf-${var.resource_prefix}-service-plan"
   resource_group_name = azurerm_resource_group.rg_func.name
   location            = azurerm_resource_group.rg_func.location
   os_type             = "Linux"
-  sku_name            = "Y1"
+  sku_name            = "F1"
 }
 
 # resource "azurerm_linux_function_app" "example" {
