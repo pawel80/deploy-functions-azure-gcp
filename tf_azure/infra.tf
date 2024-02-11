@@ -3,12 +3,12 @@ resource "azurerm_resource_group" "rg_func" {
     location = "${var.rg_location}"
 }
 
-resource "random_id" "random_suffix" {
+resource "random_id" "id" {
     byte_length = 8
 }
 
 resource "azurerm_storage_account" "storage" {
-  name                     = "tf-${var.resource_prefix}-storage-${random_id.random_suffix.hex}"
+  name                     = "tf-${var.resource_prefix}-storage-${random_id.id.hex}"
   resource_group_name      = azurerm_resource_group.rg_func.name
   location                 = azurerm_resource_group.rg_func.location
   account_tier             = "Standard"
