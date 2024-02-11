@@ -18,7 +18,7 @@ resource "azurerm_storage_account" "storage" {
 # The Y1 Consumption plan includes a monthly free grant of 1 million requests and 
 # 400,000 GB-seconds of resource consumption per month per subscription
 resource "azurerm_service_plan" "svc_plan" {
-  name                = "example-app-service-plan"
+  name                = "tf-${var.resource_prefix}-service-plan"
   resource_group_name = azurerm_resource_group.rg_func.name
   location            = azurerm_resource_group.rg_func.location
   os_type             = "Linux"
