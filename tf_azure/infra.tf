@@ -41,13 +41,18 @@ resource "azurerm_linux_function_app" "func_app" {
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
   service_plan_id            = azurerm_service_plan.svc_plan.id
 
+  https_only = true
 
   site_config {
     application_stack {
       python_version = "3.9"
     }
-    # application_insights_key = ""
+
+    # Recommended way of sending logs to App Insights
     # application_insights_connection_string = ""
+    # Legacy
+    # application_insights_key = ""
+
   }
 
   # app_settings = {}
