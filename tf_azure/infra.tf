@@ -29,7 +29,7 @@ resource "azurerm_service_plan" "svc_plan" {
   resource_group_name = azurerm_resource_group.rg_func.name
   location            = azurerm_resource_group.rg_func.location
   os_type             = "Linux"
-  sku_name            = "F1"
+  sku_name            = "Y1"
 }
 
 resource "azurerm_linux_function_app" "func_app" {
@@ -50,5 +50,5 @@ resource "azurerm_linux_function_app" "func_app" {
     # application_insights_connection_string = ""
   }
 
-  app_settings = {}
+  # app_settings = {}
 }
