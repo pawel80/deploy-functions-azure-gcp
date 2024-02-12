@@ -13,6 +13,12 @@ resource "azurerm_storage_account" "storage" {
   location                 = azurerm_resource_group.rg_func.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+
+  lifecycle {
+    ignore_changes = [ 
+        tags
+     ]
+  }
 }
 
 # Y1: Consumption plan includes a monthly free grant of 1 million requests and 
@@ -26,14 +32,23 @@ resource "azurerm_service_plan" "svc_plan" {
   sku_name            = "F1"
 }
 
-# resource "azurerm_linux_function_app" "example" {
-#   name                = "example-linux-function-app"
-#   resource_group_name = azurerm_resource_group.example.name
-#   location            = azurerm_resource_group.example.location
+resource "azurerm_linux_function_app" "func_app" {
+  name                = "tf-${var.resource_prefix}-func-app"
+  resource_group_name = azurerm_resource_group.rg_func.name
+  location            = azurerm_resource_group.rg_func.location
 
-#   storage_account_name       = azurerm_storage_account.example.name
-#   storage_account_access_key = azurerm_storage_account.example.primary_access_key
-#   service_plan_id            = azurerm_service_plan.example.id
+  storage_account_name       = azurerm_storage_account.storage.name
+  storage_account_access_key = azurerm_storage_account.storage.primary_access_key
+  service_plan_id            = azurerm_service_plan.svc_plan.id
 
-#   site_config {}
-# }
+
+  site_config {
+    application_stack {
+      python_version = "3.9"
+    }
+    # application_insights_key = ""
+    # application_insights_connection_string = ""
+  }
+
+  app_settings = {}
+}
