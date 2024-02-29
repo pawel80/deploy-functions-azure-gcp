@@ -32,6 +32,31 @@ resource "azurerm_service_plan" "svc_plan" {
   sku_name            = "Y1"
 }
 
+resource "azurerm_log_analytics_workspace" "log_workspace" {
+  name                = "tf-${var.resource_prefix}-log-workspace"
+  location            = azurerm_resource_group.rg_func.location
+  resource_group_name = azurerm_resource_group.rg_func.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
+# Collecting logs and telemtric data from Azure Functions
+resource "azurerm_application_insights" "app_insights" {
+  name                = "tf-${var.resource_prefix}-appinsights"
+  location            = azurerm_resource_group.rg_func.location
+  resource_group_name = azurerm_resource_group.rg_func.name
+  workspace_id        = azurerm_log_analytics_workspace.log_workspace.id
+  application_type    = "web"
+}
+
+# output "instrumentation_key" {
+#   value = azurerm_application_insights.example.instrumentation_key
+# }
+
+# output "app_id" {
+#   value = azurerm_application_insights.example.app_id
+# }
+
 resource "azurerm_linux_function_app" "func_app" {
   name                = "tf-${var.resource_prefix}-func-app"
   resource_group_name = azurerm_resource_group.rg_func.name
@@ -47,12 +72,10 @@ resource "azurerm_linux_function_app" "func_app" {
     application_stack {
       python_version = "3.9"
     }
-
     # Recommended way of sending logs to App Insights
-    # application_insights_connection_string = ""
-    # Legacy
+    application_insights_connection_string = azurerm_application_insights.app_insights.connection_string
+    # Legacy:
     # application_insights_key = ""
-
   }
 
   # app_settings = {}
