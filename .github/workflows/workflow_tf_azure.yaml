@@ -12,6 +12,9 @@ env:
   TF_DEV_ENV: 'DEV'
   TF_DEV_RESOURCE: 'dev'
   TF_PROD_ENV: 'PROD'
+  AZURE_FUNC_APP_NAME: 'tf-dev-func-app'   # set this to your function app name on Azure
+  AZURE_FUNC_APP_PATH: 'source'           # set this to the path to your function app project, defaults to the repository root
+  PYTHON_VERSION: '3.9'                    # set this to the python version to use (e.g. '3.6', '3.7', '3.8')
 
 # TO BE DEPLOYED
 # jobs:
@@ -122,22 +125,46 @@ jobs:
   build-and-deploy:
     name: 'Build and deploy'
     needs: terraform
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout'
       uses: actions/checkout@v4
 
-    - name: 'Azure Cloud access'
-      uses: azure/login@v1
+    - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
+      uses: actions/setup-python@v4
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        python-version: ${{ env.PYTHON_VERSION }}
 
-    - name: Azure CLI script
-      uses: azure/CLI@v1
+    - name: 'Resolve Project Dependencies Using Pip'
+      shell: bash
+      run: |
+        pushd './${{ env.AZURE_FUNC_APP_PACKAGE_PATH }}'
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+        popd
+
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
       with:
-        azcliversion: 2.30.0
-        inlineScript: |
-            az account show
+        app-name: ${{ env.AZURE_FUNC_APP_NAME }}
+        package: ${{ env.AZURE_FUNC_APP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.AZURE_FUNC_APP_PUBLISH_PROFILE }}
+        scm-do-build-during-deployment: true
+        enable-oryx-build: true
+
+    # - name: 'Azure Cloud access'
+    #   uses: azure/login@v1
+    #   with:
+    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # - name: Azure CLI script
+    #   uses: azure/CLI@v1
+    #   with:
+    #     azcliversion: 2.30.0
+    #     inlineScript: |
+    #         az account show
 
 # TODO:
 # - deploy test related job
