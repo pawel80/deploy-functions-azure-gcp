@@ -155,6 +155,7 @@ jobs:
       with:
         app-name: ${{ env.AZURE_FUNC_APP_NAME }}
         package: ${{ env.AZURE_FUNC_APP_PATH }}
+        # SCM based deployment (below) doesn't work
         # publish-profile: ${{ secrets.AZURE_FUNC_APP_PUBLISH_PROFILE }}
         # scm-do-build-during-deployment: true
         # enable-oryx-build: true
