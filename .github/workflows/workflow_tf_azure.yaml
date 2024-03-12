@@ -118,30 +118,32 @@ jobs:
         # -no-color -> Disables terminal formatting sequences in the output
         run: terraform validate -no-color
 
-      # # Creates an execution plan, which lets you preview the changes that Terraform plans to make to your infrastructure
-      # - name: 'Terraform Plan'
-      #   working-directory: ${{ env.TF_DIR }}
-      #   id: plan
-      #   run: terraform plan -no-color
-      #   continue-on-error: true
-      #   env:
-      #     ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      #     ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
-      #     ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      #     ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      # Creates an execution plan, which lets you preview the changes that Terraform plans to make to your infrastructure
+      - name: 'Terraform Plan'
+        if: ${{ github.event.inputs.terraform_env_remove == 'false' }}
+        working-directory: ${{ env.TF_DIR }}
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: true
+        env:
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
 
-      # # Executes the actions proposed in a Terraform plan
-      # - name: 'Terraform Apply'
-      #   working-directory: ${{ env.TF_DIR }}
-      #   # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
-      #   # -input=false -> Disables Terraform's default behavior of prompting for input
-      #   run: terraform apply -auto-approve -input=false
-      #   env:
-      #     ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      #     ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
-      #     ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      #     ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      # Executes the actions proposed in a Terraform plan
+      - name: 'Terraform Apply'
+        if: ${{ github.event.inputs.terraform_env_remove == 'false' }}
+        working-directory: ${{ env.TF_DIR }}
+        # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
+        # -input=false -> Disables Terraform's default behavior of prompting for input
+        run: terraform apply -auto-approve -input=false
+        env:
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
       - name: 'Terraform Destroy'
         if: ${{ github.event.inputs.terraform_env_remove == 'true' }}
