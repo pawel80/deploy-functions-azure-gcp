@@ -120,7 +120,7 @@ jobs:
 
       # Creates an execution plan, which lets you preview the changes that Terraform plans to make to your infrastructure
       - name: 'Terraform Plan'
-        if: ${{ github.event.inputs.terraform_env_remove == 'false' }}
+        if: github.ref == 'refs/heads/dev'
         working-directory: ${{ env.TF_DIR }}
         id: plan
         run: terraform plan -no-color
@@ -134,7 +134,7 @@ jobs:
 
       # Executes the actions proposed in a Terraform plan
       - name: 'Terraform Apply'
-        if: ${{ github.event.inputs.terraform_env_remove == 'false' }}
+        if: github.ref == 'refs/heads/dev'
         working-directory: ${{ env.TF_DIR }}
         # -auto-approve -> instruct Terraform to apply the plan without asking for confirmation
         # -input=false -> Disables Terraform's default behavior of prompting for input
