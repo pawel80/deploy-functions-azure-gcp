@@ -22,13 +22,25 @@
 #   default = ""  
 # }
 
-variable "resource_group_name" {
-  description = "Resource group name"
+variable "env_prefix" {
+  description = "Environment prefix"
   type = string
-  default = "RG-TF-DEV-FUNC"
+  default = ""
 }
 
-variable "resource_group_location" {
+variable "resource_prefix" {
+  description = "Resource prefix"
+  type = string
+  default = ""
+}
+
+variable "rg_name" {
+  description = "Resource group name"
+  type = string
+  default = ""
+}
+
+variable "rg_location" {
   description = "Resource group location"
   type = string
   # default = "westeurope"

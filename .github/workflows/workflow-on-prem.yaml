@@ -1,4 +1,4 @@
-name: OnPrem
+name: TF_OnPrem
 
 on:
   push:
