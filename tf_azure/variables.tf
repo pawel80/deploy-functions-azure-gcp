@@ -43,7 +43,7 @@ variable "rg_name" {
 variable "rg_location" {
   description = "Resource group location"
   type = string
-  # default = "westeurope"
+  default = "westeurope"
   # default = "italynorth"
-  default = "polandcentral"
+  # default = "polandcentral"
 }
