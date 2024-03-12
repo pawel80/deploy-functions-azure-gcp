@@ -57,6 +57,25 @@ resource "azurerm_application_insights" "app_insights" {
 #   value = azurerm_application_insights.example.app_id
 # }
 
+resource "azurerm_monitor_action_group" "mon_action_gr" {
+  name                = "tf-${var.resource_prefix}-monitor_action_group"
+  resource_group_name = azurerm_resource_group.rg_func.name
+  short_name          = "act_gr"
+}
+
+resource "azurerm_monitor_smart_detector_alert_rule" "mon_smart_detector" {
+  name                = "tf-${var.resource_prefix}-monitor_smart_detector"
+  resource_group_name = azurerm_resource_group.rg_func.name
+  severity            = "Sev4"
+  scope_resource_ids  = [azurerm_application_insights.app_insights.id]
+  frequency           = "PT1M"
+  detector_type       = "FailureAnomaliesDetector"
+
+  action_group {
+    ids = [azurerm_monitor_action_group.mon_action_gr.id]
+  }
+}
+
 resource "azurerm_linux_function_app" "func_app" {
   name                = "tf-${var.resource_prefix}-func-app"
   resource_group_name = azurerm_resource_group.rg_func.name
