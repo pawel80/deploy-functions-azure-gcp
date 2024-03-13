@@ -2,27 +2,14 @@ name: TF_Azure_Function
 
 on:
   push:
-  # workflow will run only if below branches will be updated
+  # workflow will run if below branches will be updated
     branches:
       - 'main'
       - 'dev'
 
+  # workflow can be started manually from main branch
   workflow_dispatch:
     inputs:
-  #   logLevel:
-  #     description: 'Terraform delete'
-  #     required: true
-  #     default: 'information'
-  #     type: choice
-  #     options:
-  #       - information
-  #       - debug
-  #       - warning
-  #       - critical
-  #   tags:
-  #     description: 'Purpose of Run This Workflow?'
-  #     required: true
-  #     type: string
       terraform_env_remove:
         description: 'Terraform delete'
         required: true
@@ -34,7 +21,7 @@ env:
   TF_DEV_RESOURCE: 'dev'
   TF_PROD_ENV: 'PROD'
   AZURE_FUNC_APP_NAME: 'tf-dev-func-app'   # set this to your function app name on Azure
-  AZURE_FUNC_APP_PATH: 'source'           # set this to the path to your function app project, defaults to the repository root
+  AZURE_FUNC_APP_PATH: 'source'            # set this to the path to your function app project, defaults to the repository root
   PYTHON_VERSION: '3.9'                    # set this to the python version to use (e.g. '3.6', '3.7', '3.8')
 
 # TO BE DEPLOYED
