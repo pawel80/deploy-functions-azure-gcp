@@ -189,7 +189,7 @@ jobs:
 
 # TODO:
 # - deploy test related job
-# - ADD ENV TAG per deployment
+# - READ/ADD ENV TAG per deployment
 # - SELF-HOSTED RUNNER:
 #   - Add python and dependencies as TASK
 #   - CLI or pre-defined workflows (check action github marketplace)
