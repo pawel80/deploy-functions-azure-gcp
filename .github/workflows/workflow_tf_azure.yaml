@@ -118,7 +118,6 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-
       # Executes the actions proposed in a Terraform plan
       - name: 'Terraform Apply'
         if: github.ref == 'refs/heads/dev'
