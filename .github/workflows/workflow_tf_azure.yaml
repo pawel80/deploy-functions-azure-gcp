@@ -34,7 +34,7 @@ env:
 #   deploy:
 #     runs-on: ubuntu-latest
 #     needs: test
-#     if: github.ref == 'refs/heads/master'
+#     if: github.ref == 'refs/heads/main'
 #     steps:
 #       - name: Deploy app
 
@@ -62,7 +62,7 @@ jobs:
       #   run: |
       #       env
 
-      # Azure credentials could be pass to TF via auto.vars or as step (plan and apply) in env:
+      # Azure credentials could be pass to TF via auto.vars or in a step (plan and apply) in env:
       # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
       - name: 'Terraform cloud variables'
@@ -164,10 +164,10 @@ jobs:
         pip install -r requirements.txt --target=".python_packages/lib/site-packages"
         popd
 
-    # - name: 'Azure Cloud access'
-    #   uses: azure/login@v1
-    #   with:
-    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: 'Azure Cloud access'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: 'Run Azure Functions Action'
       uses: azure/functions-action@v1
@@ -176,9 +176,9 @@ jobs:
         app-name: ${{ env.AZURE_FUNC_APP_NAME }}
         package: ${{ env.AZURE_FUNC_APP_PATH }}
         # SCM based deployment (below) doesn't work
-        publish-profile: ${{ secrets.AZURE_FUNC_APP_PUBLISH_PROFILE }}
-        scm-do-build-during-deployment: true
-        enable-oryx-build: true
+        # publish-profile: ${{ secrets.AZURE_FUNC_APP_PUBLISH_PROFILE }}
+        # scm-do-build-during-deployment: true
+        # enable-oryx-build: true
 
     # - name: Azure CLI script
     #   uses: azure/CLI@v1
@@ -188,7 +188,6 @@ jobs:
     #         az account show
 
 # TODO:
-# - FIX Azure SCM based deployment
 # - deploy test related job
 # - ADD ENV TAG per deployment
 # - SELF-HOSTED RUNNER:
