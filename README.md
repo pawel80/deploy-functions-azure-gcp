@@ -15,6 +15,3 @@ Authentication methods:
 
 Terraform state will be kept in Terraform Cloud (instead of Azure or GCP storage).  
 
-
-
-code quote test: `py -3.9 -m venv .venv`
