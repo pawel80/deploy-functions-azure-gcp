@@ -43,6 +43,7 @@ jobs:
     name: 'Terraform'
     # refs/pull/<pr_number>/merge
     # refs/tags/<tag_name>
+    # second condition is manual workflow run
     if: github.ref == 'refs/heads/dev' || github.event.inputs.terraform_env_remove == 'true'
     runs-on: ubuntu-latest
     steps:
