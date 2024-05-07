@@ -17,7 +17,3 @@ Terraform state will be kept in Terraform Cloud (instead of Azure or GCP storage
 
 https://tf-dev-func-app.azurewebsites.net/api/py_https?name=<your_name>
 https://tf-dev-func-app.azurewebsites.net/api/py_https2
-
-# added to dev3
-# added to dev2
-# something else added to dev2
