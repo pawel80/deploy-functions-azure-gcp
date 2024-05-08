@@ -5,9 +5,9 @@ import logging
 
 app = func.FunctionApp()
 
-@app.function_name(name="HttpTrigger1")
-@app.route(route="py_https", auth_level=func.AuthLevel.ANONYMOUS)
-def py_https(req: func.HttpRequest) -> func.HttpResponse:
+@app.function_name(name="HttpTriggerTest1")
+@app.route(route="py-test1", auth_level=func.AuthLevel.ANONYMOUS)
+def py_test1(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Python HTTP trigger function processed a request.")
 
     name = req.params.get("name")
@@ -28,9 +28,9 @@ def py_https(req: func.HttpRequest) -> func.HttpResponse:
         )
 
 
-@app.function_name(name="HttpTrigger2")
+@app.function_name(name="HttpTriggerTest2")
 @app.route(route="py-test2", auth_level=func.AuthLevel.ANONYMOUS)
-def py_https2(req: func.HttpRequest) -> func.HttpResponse:
+def py_test2(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Python HTTP trigger function (two) processed a request.")
 
     return func.HttpResponse(
