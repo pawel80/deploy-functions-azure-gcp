@@ -8,6 +8,7 @@ on:
 
 env:
   TF_DIR: 'tf_gcp'
+  TF_DEV_RESOURCE: 'dev'
 
 jobs:
   terraform:
@@ -29,6 +30,7 @@ jobs:
           cat > workflow.auto.tfvars <<EOF
           GOOGLE_PROJECT_ID = "${{ secrets.GCP_PROJECT_ID }}"
           GOOGLE_REGION = "${{ vars.GCP_REGION }}"
+          resource_prefix = "${{ env.TF_DEV_RESOURCE }}"
           EOF
     
       # Install Terraform, provide credentials to the cloud (for state control)

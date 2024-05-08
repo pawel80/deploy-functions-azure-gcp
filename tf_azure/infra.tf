@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "rg_func" {
-    name = "RG-TF-${var.env_prefix}-FUNCTION"
-    location = "${var.rg_location}"
+  name = "RG-TF-${var.env_prefix}-FUNCTION"
+  location = "${var.rg_location}"
 }
 
 resource "random_id" "id" {
-    byte_length = 4
+  byte_length = 4
 }
 
 resource "azurerm_storage_account" "storage" {

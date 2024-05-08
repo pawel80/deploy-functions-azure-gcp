@@ -15,6 +15,7 @@ Authentication methods:
 
 Terraform state will be kept in Terraform Cloud (instead of Azure or GCP storage).  
 
+Azure Function links:  
 https://tf-dev-func-app.azurewebsites.net/api/py-test1  
 https://tf-dev-func-app.azurewebsites.net/api/py-test1?name={your_name}  
 https://tf-dev-func-app.azurewebsites.net/api/py-test2  

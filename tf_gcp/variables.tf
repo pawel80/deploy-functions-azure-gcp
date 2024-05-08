@@ -15,3 +15,9 @@ variable "GOOGLE_REGION" {
   type    = string
   default = ""
 }
+
+variable "resource_prefix" {
+  description = "Resource prefix"
+  type = string
+  default = ""
+}

@@ -63,7 +63,7 @@ jobs:
       #   run: |
       #       env
 
-      # Azure credentials could be pass to TF via auto.vars or in a step (plan and apply) in env:
+      # Azure credentials could be pass to TF via auto.vars (below) or in a step (Terraform plan, apply, destroy; as env):
       # variables need to be defined in variables block and need to be refere in provider block
       # All secrets are stored in Github Action Secrets
       - name: 'Terraform cloud variables'
@@ -73,11 +73,20 @@ jobs:
           cat > workflow.auto.tfvars <<EOF
           env_prefix = "${{ env.TF_DEV_ENV }}"
           resource_prefix = "${{ env.TF_DEV_RESOURCE }}"
-          # ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
-          # ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
-          # ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
-          # ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
           EOF
+
+      # - name: 'Terraform cloud variables'
+      #   working-directory: ${{ env.TF_DIR }}
+      #   id: vars
+      #   run: |
+      #     cat > workflow.auto.tfvars <<EOF
+      #     env_prefix = "${{ env.TF_DEV_ENV }}"
+      #     resource_prefix = "${{ env.TF_DEV_RESOURCE }}"
+      #     ARM_TENANT_ID = "${{ secrets.AZURE_TENANT_ID }}"
+      #     ARM_SUBSCRIPTION_ID = "${{ secrets.AZURE_SUB_ID }}"
+      #     ARM_CLIENT_ID = "${{ secrets.AZURE_CLIENT_ID }}"
+      #     ARM_CLIENT_SECRET = "${{ secrets.AZURE_CLIENT_SECRET }}"
+      #     EOF
 
       # Install Terraform, provide credentials to the cloud
       # Terraform API driven workflow
