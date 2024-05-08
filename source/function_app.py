@@ -29,7 +29,7 @@ def py_https(req: func.HttpRequest) -> func.HttpResponse:
 
 
 @app.function_name(name="HttpTrigger2")
-@app.route(route="py_https2", auth_level=func.AuthLevel.ANONYMOUS)
+@app.route(route="py-test2", auth_level=func.AuthLevel.ANONYMOUS)
 def py_https2(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Python HTTP trigger function (two) processed a request.")
 
