@@ -9,7 +9,7 @@ resource "random_id" "id" {
 
 resource "google_storage_bucket" "bucket" {
   name                        = "tf${var.resource_prefix}bucket${random_id.id.hex}" # Every bucket name must be globally unique
-  location                    = "PL"
+  location                    = "${var.GOOGLE_REGION}"
   uniform_bucket_level_access = true
 }
 
