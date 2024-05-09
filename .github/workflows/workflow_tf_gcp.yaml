@@ -102,7 +102,7 @@ jobs:
       with:
         name: 'gcp-function'
         # entry_point - name of a Function inside GCP
-        entry_point: 'github-dev-gcp-func-app'
+        # entry_point: 'github-dev-gcp-func-app'
         runtime: 'nodejs20'
         source_dir: 'source/src_gcp_func'
         region: '${{ vars.GCP_REGION }}'
