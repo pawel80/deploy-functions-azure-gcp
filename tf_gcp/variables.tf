@@ -21,3 +21,9 @@ variable "resource_prefix" {
   type = string
   default = ""
 }
+
+variable "app_path" {
+  description = "Resource prefix"
+  type = string
+  default = ""
+}
