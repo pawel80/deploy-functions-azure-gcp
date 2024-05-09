@@ -95,11 +95,24 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v2'
+    - id: 'deploy'
+      uses: 'google-github-actions/deploy-cloud-functions@v2'
       with:
-        # version: '>= 459.0.0'
-        version: 'latest'
+        name: 'tf-dev-gcp-func-app'
+        runtime: 'nodejs20'
+        source_dir: 'source/src_gcp_func'
+        region: '${{ vars.GCP_REGION }}'
+        memory_mb: '128M'
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    # Example of using the output
+    - id: 'test'
+      run: 'curl "${{ steps.deploy.outputs.url }}"'
+
+    # - name: 'Set up Cloud SDK'
+    #   uses: 'google-github-actions/setup-gcloud@v2'
+    #   with:
+    #     # version: '>= 459.0.0'
+    #     version: 'latest'
+
+    # - name: 'Use gcloud CLI'
+    #   run: 'gcloud info'
