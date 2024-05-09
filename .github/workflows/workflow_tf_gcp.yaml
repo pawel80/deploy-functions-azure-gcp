@@ -100,7 +100,7 @@ jobs:
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloud-functions@v2'
       with:
-        name: 'gcp-function'
+        name: 'hello_world'
         # entry_point - name of a Function inside GCP
         # entry_point: 'github-dev-gcp-func-app'
         # runtime: 'nodejs20'
