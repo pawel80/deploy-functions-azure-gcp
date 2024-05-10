@@ -81,7 +81,8 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
 
-  # There is no need for Terafform action to build GCP Function
+  # There is no need for Terraform action to build simple GCP Function,
+  # for more comlex setup you will need Terraform
   build-and-deploy:
     name: 'Build and deploy'
     needs: terraform
@@ -100,7 +101,7 @@ jobs:
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloud-functions@v2'
       with:
-        name: 'hello_world'
+        name: 'hello_get'
         # entry_point - name of a Function inside GCP
         # entry_point: 'github-dev-gcp-func-app'
         # runtime: 'nodejs20'
