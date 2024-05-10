@@ -97,7 +97,7 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-    # To run that step, enable "Cloud Build API" in GCP
+    # To run that step, enable "Cloud Build API" (+ few more API features) in GCP
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloud-functions@v2'
       with:
