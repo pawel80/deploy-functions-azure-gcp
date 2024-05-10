@@ -20,10 +20,10 @@ def py_test1(req: func.HttpRequest) -> func.HttpResponse:
             name = req_body.get("name")
 
     if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+        return func.HttpResponse(f"Hello {name}, hello Azure World! This HTTP triggered function executed successfully.")
     else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+             "Hello Azure World! This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
         )
 
@@ -34,6 +34,6 @@ def py_test2(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Python HTTP trigger function (two) processed a request.")
 
     return func.HttpResponse(
-        "Yet another HTTP triggered successfully story!",
+        "Hello Azure World! Yet another HTTP triggered successfully story!",
         status_code=200
         )
