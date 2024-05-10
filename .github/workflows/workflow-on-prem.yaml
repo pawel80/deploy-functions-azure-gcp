@@ -16,3 +16,10 @@ jobs:
 
     - name: 'Run bash echo command'
       run: echo 'Hello, world!'
+
+    - name: Set up Python
+      # This is the version of the action for setting up Python, not the Python version.
+      uses: actions/setup-python@v5
+      with:
+        # Semantic version range syntax or exact version of a Python version
+        python-version: '3.9'
