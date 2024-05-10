@@ -19,3 +19,6 @@ Azure Function links:
 https://tf-dev-func-app.azurewebsites.net/api/py-test1  
 https://tf-dev-func-app.azurewebsites.net/api/py-test1?name={your_name}  
 https://tf-dev-func-app.azurewebsites.net/api/py-test2  
+
+GC links:  
+https://europe-central2-first-granite-411019.cloudfunctions.net/hello_world  
